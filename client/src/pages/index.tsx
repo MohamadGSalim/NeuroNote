@@ -2,8 +2,6 @@ import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import Nav from '@/components/NavBar'
-import { Piano, KeyboardShortcuts, MidiNumbers } from 'react-piano';
-import 'react-piano/dist/styles.css';
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
