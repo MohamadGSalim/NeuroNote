@@ -96,8 +96,7 @@ function Profile() {
             </Button>
         </Center>
         
-       
-
+    
     </>
     )
 }
