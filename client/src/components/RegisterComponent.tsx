@@ -6,6 +6,7 @@ import {
 	Flex,
 	FormControl,
 	FormHelperText,
+	FormLabel,
 	Heading,
 	Input,
 	InputGroup,
@@ -13,28 +14,35 @@ import {
 	InputRightElement,
 	Link,
 	Stack,
+	Switch,
+	Textarea,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 import { State } from "../util/state";
 
 const CFaUserAlt = chakra(FaUserAlt);
+const CFaEmail = chakra(MdEmail);
 const CFaLock = chakra(FaLock);
 
-export function LoginComponent() {
+export function RegisterComponent() {
 	const [showPassword, setShowPassword] = useState(false);
 	const [password, setPassword] = useState("");
 	const [username, setUsername] = useState("");
+	const [email, setEmail] = useState("");
+	const [hasDisability, setHasDisability] = useState(false);
+	const [disability, setDisability] = useState("");
 	const [error, setError] = useState("");
 	const handleShowClick = () => setShowPassword(!showPassword);
 
 	async function login() {
-		if (username.length == 0 || password.length == 0) {
-			setError("Username or password cannot be empty");
+		if (username.length == 0 || password.length == 0 || email.length == 0) {
+			setError("Username, email or password cannot be empty");
 			return;
 		}
 
-		const response = await fetch("http://localhost:7070/auth/login", {
+		const response = await fetch("http://localhost:7070/auth/register", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -42,6 +50,8 @@ export function LoginComponent() {
 			body: JSON.stringify({
 				username: username,
 				password: password,
+				email: email,
+				disability_type: disability,
 			}),
 		});
 
@@ -78,7 +88,7 @@ export function LoginComponent() {
 			>
 				<Avatar bg="white.500" />
 				<Heading color="white.400" size={"2xl"}>
-					Welcome
+					Welcome to NeuroNote
 				</Heading>
 				<Box minW={{ base: "90%", md: "468px" }}>
 					<form>
@@ -114,6 +124,23 @@ export function LoginComponent() {
 									<InputLeftElement
 										pointerEvents="none"
 										color="gray.300"
+										children={<CFaEmail color="gray.300" />}
+									/>
+									<Input
+										type="email"
+										placeholder="Email"
+										fontSize={"larger"}
+										onChange={(e) => setEmail(e.target.value)}
+										value={email}
+										required
+									/>
+								</InputGroup>
+							</FormControl>
+							<FormControl>
+								<InputGroup>
+									<InputLeftElement
+										pointerEvents="none"
+										color="gray.300"
 										children={<CFaLock color="gray.300" />}
 									/>
 									<Input
@@ -134,6 +161,29 @@ export function LoginComponent() {
 									Not a memeber? <Link>register here</Link>
 								</FormHelperText> */}
 							</FormControl>
+							<FormControl display="flex" alignItems="center">
+								<FormLabel htmlFor="has-disability">
+									I have a disability
+								</FormLabel>
+								<Switch
+									id="has-disability"
+									size="lg"
+									colorScheme="facebook"
+									onChange={(e) => setHasDisability((t) => !t)}
+								/>
+							</FormControl>
+							{hasDisability && (
+								<FormControl>
+									<InputGroup>
+										<Textarea
+											placeholder="Give us more details"
+											fontSize={"large"}
+											onChange={(e) => setDisability(e.target.value)}
+											value={disability}
+										/>
+									</InputGroup>
+								</FormControl>
+							)}
 							<Button
 								borderRadius={0}
 								type="submit"
@@ -143,16 +193,16 @@ export function LoginComponent() {
 								fontSize={"larger"}
 								onClick={login}
 							>
-								Login
+								Register
 							</Button>
 						</Stack>
 					</form>
 				</Box>
 			</Stack>
 			<Box>
-				New to us?{" "}
-				<Link color="white.500" href="/register">
-					Sign Up
+				Already a memeber?
+				<Link color="white.500" href="/login">
+					Login
 				</Link>
 			</Box>
 		</Flex>
