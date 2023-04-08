@@ -6,6 +6,9 @@ import Register from "./pages/register";
 import Login from "./pages/login";
 import { ChakraProvider } from "@chakra-ui/react";
 import Home from "./pages/home";
+import Diary from "./pages/diary";
+import Feedback from "./pages/feedback";
+
 function App() {
   return (
     <ChakraProvider>
@@ -14,6 +17,9 @@ function App() {
           <Route path="/login" Component={Login} />
           <Route path="/register" Component={Register} />
           <Route path="/" Component={Home} />
+          <Route path="/diary" Component={Diary} />
+          <Route path="/feedback" Component={Feedback} />
+
         </Routes>
       </Router>
     </ChakraProvider>
