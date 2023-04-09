@@ -9,6 +9,7 @@ FormLabel,
 Radio,
 RadioGroup,
 useToast,
+Stack,
 } from '@chakra-ui/react';
 import Nav from '../components/NavBar';
 
@@ -48,38 +49,44 @@ return (
          <meta name="viewport" content="width=device-width, initial-scale=1" />
       
       <Nav />
-      <Box p="4" bg="gray.100" textAlign="center">
-         <Box bg="white" w="100%" maxWidth="50rem" mx="auto" p="4">
-         <Heading as="h1" mb="4">
+      <Box p="4" bg="black.100" textAlign="center">
+         <Box  w="100%" maxWidth="50rem" mx="auto" p="4">
+         <Heading fontSize={'58px'} as="h1" mb="4">
             Feedback
          </Heading>
-         <Box as="p" mb="4">
+         <Box fontSize={'36px'} as="p" mb="8" fontWeight="bold">
             Answer the following questions to provide feedback on your experience with NeuroNote.
          </Box>
          <form onSubmit={handleSubmit}>
             <FormControl mb="8" isRequired>
-               <FormLabel as="h2" fontSize="lg" fontWeight="bold">
+               <FormLabel as="h2" fontSize={'26px'} fontWeight="bold">
                   1) Do you find the graphs and visualizations in the app distracting?
                </FormLabel>
-               <RadioGroup
+               
+               <RadioGroup 
                name="visualizations"
                onChange={(value) => setVisualizations(value)}
                value={visualizations}
                >
+                  <Stack spacing={4} direction = "column" >
                   <Radio value="Yes, they are too distracting">Yes, they are too distracting</Radio>
                   <Radio value="No, they are helpful in understanding the data">No, they are helpful in understanding the data</Radio>
                   <Radio value="I don't have an opinion">I don't have an opinion</Radio>
+                  </Stack>
                </RadioGroup>
+            
             </FormControl>
             <FormControl mb="8" isRequired>
-               <FormLabel as="h2" fontSize="lg" fontWeight="bold">
+               <FormLabel as="h2" fontSize={'26px'} fontWeight="bold">
                   2) Do you feel that the app's features are organized in a logical and intuitive manner?
                </FormLabel>
+               
                <RadioGroup
                name="features"
                onChange={(value) => setFeatures(value)}
                value={features}
                >
+                  <Stack spacing={4} direction = "column">
                   <Radio value="Yes, they are easy to find and use">
                      Yes, they are easy to find and use
                   </Radio>
@@ -89,10 +96,12 @@ return (
                   <Radio value="Unclear and difficult to navigate">
                      Unclear and difficult to navigate
                   </Radio>
+                  </Stack>
                </RadioGroup>
+              
             </FormControl>
             <FormControl mb="8" isRequired>
-               <FormLabel as="h2" fontSize="lg" fontWeight="bold">
+               <FormLabel as="h2" fontSize={'26px'} fontWeight="bold">
                   3) Which of the following features would make it easier for you to use the app?
                </FormLabel>
                <RadioGroup
@@ -100,6 +109,7 @@ return (
                onChange={(value) => setDistracting(value)}
                value={distracting}
                >
+                  <Stack spacing={4} direction = "column">
                   <Radio value="More detailed explanations and tutorials">
                      More detailed explanations and tutorials
                   </Radio>
@@ -110,10 +120,11 @@ return (
                      More customization options
                   </Radio>
                   <Radio value="Other">Other</Radio>
+                  </Stack>
                </RadioGroup>
             </FormControl>
             <FormControl mb="8" isRequired>
-               <FormLabel as="h2" fontSize="lg" fontWeight="bold">
+               <FormLabel as="h2" fontSize={'26px'} fontWeight="bold">
                   4) How do you feel about the overall design and visual appeal of NeuroNote?
                </FormLabel>
                <RadioGroup
@@ -121,6 +132,7 @@ return (
                onChange={(value) => setDesign(value)}
                value={design}
                >
+                  <Stack spacing={4} direction = "column">
                   <Radio value="Very visually appealing">Very visually appealing</Radio>
                   <Radio value="Somewhat visually appealing">
                      Somewhat visually appealing
@@ -131,10 +143,11 @@ return (
                   <Radio value="Not visually appealing at all">
                      Not visually appealing at all
                   </Radio>
+                  </Stack>
                </RadioGroup>
             </FormControl>
             <FormControl mb="8" isRequired>
-               <FormLabel as="h2" fontSize="lg" fontWeight="bold">
+               <FormLabel as="h2" fontSize={'26px'} fontWeight="bold">
                   5) How do you feel about the accuracy of the EEG headset in detecting your brainwaves and translating them into music notes?
                </FormLabel>
                <RadioGroup
@@ -142,15 +155,17 @@ return (
                onChange={(value) => setAccuracy(value)}
                value={accuracy}
                >
+                  <Stack spacing={4} direction = "column">
                   <Radio value="It is very accurate">It is very accurate</Radio>
                   <Radio value="It is somewhat accurate">
                      It is somewhat accurate
                   </Radio>
                   <Radio value="It is not accurate">It is not accurate</Radio>
+                  </Stack>
                </RadioGroup>
             </FormControl>
             <FormControl mb="8" isRequired>
-               <FormLabel as="h2" fontSize="lg" fontWeight="bold">
+               <FormLabel as="h2" fontSize={'26px'} fontWeight="bold">
                   6) Do you feel that NeuroNote provides enough feedback and guidance to help you improve your brainwave control and create better music?
                </FormLabel>
                <RadioGroup
@@ -158,6 +173,7 @@ return (
                onChange={(value) => setFeedback(value)}
                value={feedback}
                >
+                  <Stack spacing={4} direction = "column">
                   <Radio value="Yes, the feedback and guidance are helpful"> Yes, the feedback and guidance are helpful</Radio>
                   <Radio value="Somewhat, but more feedback and guidance would be helpful"> 
                      Somewhat, but more feedback and guidance would be helpful
@@ -165,6 +181,7 @@ return (
                   <Radio value="No, the feedback and guidance are not helpful">
                      No, the feedback and guidance are not helpful
                   </Radio>
+                  </Stack>
                </RadioGroup>
             </FormControl>
             <Button

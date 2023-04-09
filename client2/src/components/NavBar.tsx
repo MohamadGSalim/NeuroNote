@@ -18,6 +18,7 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { Link as RouterLink } from "react-router-dom";
 
 const NavLink = ({ children }: { children: ReactNode }) => (
   <Link
@@ -53,6 +54,18 @@ export default function Nav() {
               <Button onClick={toggleColorMode}>
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
+
+              <Link as={RouterLink} to="/feedback">
+                <Button colorScheme="teal" variant="outline">
+                  Feedback
+                </Button>
+              </Link>
+
+              <Link as={RouterLink} to="/diary">
+                <Button colorScheme="teal" variant="outline">
+                  Diary
+                </Button>
+              </Link>
 
               <Menu>
                 <MenuButton

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState } from 'react';
 import { 
   Box, 
@@ -16,6 +15,8 @@ import {
   Center,
 } from '@chakra-ui/react';
 import Nav from '../components/NavBar';
+
+
 
 export default function Diary() {
    const [satisfaction, setSatisfaction] = useState(0)
