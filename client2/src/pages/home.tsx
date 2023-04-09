@@ -21,6 +21,7 @@ import PianoWithRecording from "../utils/PianoWithRecording";
 import { Component, useState } from "react";
 import { CiPlay1 } from "react-icons/ci";
 import { BsStop } from "react-icons/bs";
+import FrequencyChart from "./frequencyChart";
 const audioContext = new window.AudioContext();
 const soundfontHostname = "https://d1pzp51pvbm36p.cloudfront.net";
 
@@ -168,7 +169,13 @@ export default class Home extends Component<{}, AppState> {
             <Badge colorScheme="green">Connected</Badge>
           </CardBody>
         </Card>
-        <Box w="100%" h="300px"></Box>
+
+        <Box w="100%" h="300px" mb={6}>
+          <Center>
+            <FrequencyChart />
+          </Center>
+        </Box>
+
         <Flex direction="row" justifyContent="center">
           <Button
             leftIcon={<CiPlay1 />}

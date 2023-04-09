@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Chart, Line } from 'react-chartjs-2';
+import Nav from '../components/NavBar';
 
 import {
   Chart as ChartJS,
@@ -34,7 +35,7 @@ const options = {
       display: false,
     },
     title: {
-      display: true,
+      display: false,
       text: 'Frequency/Time Line Chart',
       font: {
         size: 16,
@@ -109,9 +110,12 @@ const FrequencyChart = () => {
   }, [data]);
 
   return (
-    <div style={{ width: '400px', height: '300px' }}>
-      <Line data={data} options={options} />
-    </div>
+    //<div>
+        //<Nav />
+        <div style={{ width: '400px', height: '300px' }}>
+            <Line data={data} options={options} />
+        </div>
+    //</div>
   );
 };
 
