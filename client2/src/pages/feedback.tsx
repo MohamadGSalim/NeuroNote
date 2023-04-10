@@ -69,9 +69,9 @@ return (
                value={visualizations}
                >
                   <Stack spacing={4} direction = "column" >
-                  <Radio value="Yes, they are too distracting">Yes, they are too distracting</Radio>
-                  <Radio value="No, they are helpful in understanding the data">No, they are helpful in understanding the data</Radio>
-                  <Radio value="I don't have an opinion">I don't have an opinion</Radio>
+                  <Radio value="Yes, they are too distracting" size="lg" >Yes, they are too distracting</Radio>
+                  <Radio value="No, they are helpful in understanding the data" size="lg">No, they are helpful in understanding the data</Radio>
+                  <Radio value="I don't have an opinion" size="lg">I don't have an opinion</Radio>
                   </Stack>
                </RadioGroup>
             
@@ -87,13 +87,13 @@ return (
                value={features}
                >
                   <Stack spacing={4} direction = "column">
-                  <Radio value="Yes, they are easy to find and use">
+                  <Radio value="Yes, they are easy to find and use" size="lg">
                      Yes, they are easy to find and use
                   </Radio>
-                  <Radio value="No, they are difficult to find and use">
+                  <Radio value="No, they are difficult to find and use" size="lg">
                      No, they are difficult to find and use
                   </Radio>
-                  <Radio value="Unclear and difficult to navigate">
+                  <Radio value="Unclear and difficult to navigate" size="lg">
                      Unclear and difficult to navigate
                   </Radio>
                   </Stack>
@@ -110,16 +110,16 @@ return (
                value={distracting}
                >
                   <Stack spacing={4} direction = "column">
-                  <Radio value="More detailed explanations and tutorials">
+                  <Radio value="More detailed explanations and tutorials" size="lg">
                      More detailed explanations and tutorials
                   </Radio>
-                  <Radio value="Fewer graphs and visualizations">
+                  <Radio value="Fewer graphs and visualizations" size="lg">
                      Fewer graphs and visualizations
                   </Radio>
-                  <Radio value="More customization options">
+                  <Radio value="More customization options" size="lg">
                      More customization options
                   </Radio>
-                  <Radio value="Other">Other</Radio>
+                  <Radio value="Other" size="lg">Other</Radio>
                   </Stack>
                </RadioGroup>
             </FormControl>
@@ -133,14 +133,14 @@ return (
                value={design}
                >
                   <Stack spacing={4} direction = "column">
-                  <Radio value="Very visually appealing">Very visually appealing</Radio>
-                  <Radio value="Somewhat visually appealing">
+                  <Radio value="Very visually appealing" size="lg">Very visually appealing</Radio>
+                  <Radio value="Somewhat visually appealing" size="lg">
                      Somewhat visually appealing
                   </Radio>
-                  <Radio value="Not very visually appealing">
+                  <Radio value="Not very visually appealing" size="lg">
                      Not very visually appealing
                   </Radio>
-                  <Radio value="Not visually appealing at all">
+                  <Radio value="Not visually appealing at all" size="lg">
                      Not visually appealing at all
                   </Radio>
                   </Stack>
@@ -156,11 +156,11 @@ return (
                value={accuracy}
                >
                   <Stack spacing={4} direction = "column">
-                  <Radio value="It is very accurate">It is very accurate</Radio>
-                  <Radio value="It is somewhat accurate">
+                  <Radio value="It is very accurate" size="lg">It is very accurate</Radio>
+                  <Radio value="It is somewhat accurate" size="lg">
                      It is somewhat accurate
                   </Radio>
-                  <Radio value="It is not accurate">It is not accurate</Radio>
+                  <Radio value="It is not accurate" size="lg">It is not accurate</Radio>
                   </Stack>
                </RadioGroup>
             </FormControl>
@@ -174,11 +174,11 @@ return (
                value={feedback}
                >
                   <Stack spacing={4} direction = "column">
-                  <Radio value="Yes, the feedback and guidance are helpful"> Yes, the feedback and guidance are helpful</Radio>
-                  <Radio value="Somewhat, but more feedback and guidance would be helpful"> 
+                  <Radio value="Yes, the feedback and guidance are helpful" size="lg"> Yes, the feedback and guidance are helpful</Radio>
+                  <Radio value="Somewhat, but more feedback and guidance would be helpful" size="lg"> 
                      Somewhat, but more feedback and guidance would be helpful
                   </Radio>
-                  <Radio value="No, the feedback and guidance are not helpful">
+                  <Radio value="No, the feedback and guidance are not helpful" size="lg">
                      No, the feedback and guidance are not helpful
                   </Radio>
                   </Stack>

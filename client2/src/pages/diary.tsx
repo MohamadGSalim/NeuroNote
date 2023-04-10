@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate} from 'react-router-dom';
 import { 
   Box, 
   Heading, 
@@ -26,6 +27,9 @@ export default function Diary() {
    const [quality, setQuality] = useState(0)
    const [comments, setComments] = useState('')
    const [, setSubmitted] = useState(false);
+
+   
+   const navigate = useNavigate();
 
   const handleSatisfactionChange = (value: number) => {
     setSatisfaction(value)
@@ -57,6 +61,7 @@ export default function Diary() {
     setMotivation(0)
     setQuality(0)
     setComments('')
+    navigate ('/thankyou')
   }
 
   const getEmoji = (value: number) => {

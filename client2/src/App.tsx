@@ -8,6 +8,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import Home from "./pages/home";
 import Diary from "./pages/diary";
 import Feedback from "./pages/feedback";
+import ThankYou from "./pages/thankyou";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" Component={Home} />
           <Route path="/diary" Component={Diary} />
           <Route path="/feedback" Component={Feedback} />
+          <Route path="/thankyou" Component={ThankYou} />
 
         </Routes>
       </Router>
