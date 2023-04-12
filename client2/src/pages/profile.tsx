@@ -1,5 +1,6 @@
 import Nav from '../components/NavBar'
-import { Center, Square, Circle } from '@chakra-ui/react'
+import { useState } from 'react'
+import { Center, Square, Circle, useTagStyles } from '@chakra-ui/react'
 import { Heading } from '@chakra-ui/react'
 import { SimpleGrid } from '@chakra-ui/react'
 import { Box } from '@chakra-ui/react'
@@ -24,6 +25,15 @@ import "../styles/profile.css"
 
 function Profile() {
 
+    const [name, setName] = useState("Name")
+    const [profilePic, setProfilePic] = useState("https://avatars.dicebear.com/api/male/username.svg")
+    const [userName, setUserName] = useState("UserName")
+    const [email, setEmail] = useState("user@gmail.com")
+    const [level, setLevel] = useState("Time Traveler")
+    const [nextLevel, setNextLevel] = useState("Silver Badge")
+    const [xp, setXP] = useState("74/120")
+    const [badge, setBadge] = useState("bronze.png")
+
     return (
     <>
         <Nav />
@@ -40,14 +50,14 @@ function Profile() {
                         <Center>
                             <Avatar
                                 size={"3xl"}
-                                src={"https://avatars.dicebear.com/api/male/username.svg"}
+                                src={profilePic}
                             />
                         </Center>
                     </Box>
 
                     <Box>
                         <Center>
-                            <Heading as="h4">Time Traveler</Heading>
+                            <Heading as="h4">{level}</Heading>
                             <br></br>
                             <div>
                                 <Popover>
@@ -74,18 +84,29 @@ function Profile() {
             </Box>
 
             <Box>
-                <Heading as='h3' id="profile_element">User</Heading>
-                <Heading as='h3' id="profile_element">UserName</Heading>
-                <Heading as='h3' id="profile_element">user@gmail.com</Heading>
-                <Heading as='h3' id="profile_element">Password</Heading>
-                <Center><Image src="bronze.png" id="profile_element"></Image></Center>
+                <Heading as='h3' id="profile_element">{name}</Heading>
+                <Heading as='h3' id="profile_element">{userName}</Heading>
+                <Heading as='h3' id="profile_element">{email}</Heading>
+                <Center><Image src={badge} id="profile_element"></Image></Center>
                 <div id="profile_progress"><Progress value={80} /></div>
-                <Center><div id="profile_progress_description">75/120 minutes until Silver level! </div></Center>
+                <Center><div id="profile_progress_description">{xp} minutes until {nextLevel}! </div></Center>
             </Box>
 
             
         </SimpleGrid>
         <Center>
+            <Button id="profile_log_out"
+                size="lg"
+                loadingText='Loggin Out...'
+                colorScheme='teal'
+                variant='outline'
+            >
+                Edit Profile!
+            </Button>
+
+            <br></br>
+            <br></br>
+
             <Button id="profile_log_out"
                 size="lg"
                 loadingText='Loggin Out...'
