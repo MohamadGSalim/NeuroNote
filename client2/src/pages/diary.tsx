@@ -93,7 +93,7 @@ export default function Diary() {
          <center>
          <Heading fontSize="50px" as="h1" mb={20}>NeuroNote Diary</Heading>
          </center>
-            <Text  fontSize="30px" fontWeight="bold" mb={16}>Answer the following questions to provide feedback on your experience with NeuroNote.</Text>
+            <Text  fontSize="30px" fontWeight="bold" mb={16}>Please slide the emojis below to indicate your level of satisfaction with NeuroNote.</Text>
             <Box as="form" onSubmit={handleSubmit}>
             <Box mb={4}>
                <FormLabel fontSize="25px" htmlFor="satisfaction">How satisfied are you with your music creation experience using NeuroNote today?</FormLabel>

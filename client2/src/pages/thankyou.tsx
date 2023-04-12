@@ -5,7 +5,6 @@ import Nav from '../components/NavBar';
 const ThankYou = () => {
   const { colorMode } = useColorMode();
   const bgColor = colorMode === 'light' ? 'purple.50' : 'gray.800';
-  const textColor = colorMode === 'light' ? 'gray.800' : 'gray.50';
   
   return (
     <Box bg={bgColor} minHeight="100vh" display="flex" flexDirection="column">
