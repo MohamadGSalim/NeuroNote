@@ -1,0 +1,18 @@
+
+.profile_title{
+    margin: 20px;
+}
+
+#profile_element{
+    padding: 15px;
+}
+
+#profile_progress{
+    padding-left: 70px;
+    padding-right: 70px;
+}
+
+#profile_progress_description{
+    font-size: 24px;
+}
+
