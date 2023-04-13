@@ -13,7 +13,7 @@ import {
 	InputRightElement,
 	Link,
 	Stack,
-	Text
+	Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
@@ -74,17 +74,19 @@ export function LoginComponent() {
 			alignItems="center"
 			fontSize={"larger"}
 		>
-			<Box ><Image src='/logo-white.svg' alt='NeuroNote Logo' height={130}/></Box>
+			<Box>
+				<Image src="/logo-white.svg" alt="NeuroNote Logo" height={130} />
+			</Box>
 			<Stack
 				flexDir="column"
 				mb="2"
 				justifyContent="center"
 				alignItems="center"
 			>
-			<Heading color="white.400" size={"2xl"} mt="6px">
+				<Heading color="white.400" size={"2xl"} mt="6px">
 					Welcome to NeuroNote
 				</Heading>
-				<Text color="white.400" fontSize='2xl'>
+				<Text color="white.400" fontSize="2xl">
 					Please fill in and submit the form to login
 				</Text>
 				<Box minW={{ base: "90%", md: "468px" }}>
@@ -155,7 +157,12 @@ export function LoginComponent() {
 			</Stack>
 			<Box>
 				New to us?{" "}
-				<Link color="blue" href="/register">
+				<Link
+					color="white"
+					textDecoration="underline"
+					fontWeight="bold"
+					href="/register"
+				>
 					Sign Up
 				</Link>
 			</Box>

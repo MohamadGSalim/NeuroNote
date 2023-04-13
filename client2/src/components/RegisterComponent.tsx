@@ -16,7 +16,7 @@ import {
 	Stack,
 	Switch,
 	Textarea,
-	Text
+	Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
@@ -28,6 +28,7 @@ const CFaEmail = chakra(MdEmail);
 const CFaLock = chakra(FaLock);
 
 export function RegisterComponent() {
+	const [fullname, setFullname] = useState("");
 	const [showPassword, setShowPassword] = useState(false);
 	const [password, setPassword] = useState("");
 	const [username, setUsername] = useState("");
@@ -40,8 +41,13 @@ export function RegisterComponent() {
 
 	async function login(e) {
 		e.preventDefault();
-		if (username.length === 0 || password.length === 0 || email.length === 0) {
-			setError("Username, email or password cannot be empty");
+		if (
+			username.length === 0 ||
+			password.length === 0 ||
+			email.length === 0 ||
+			fullname.length === 0
+		) {
+			setError("Username, fullname, email or password cannot be empty");
 			return;
 		}
 
@@ -55,6 +61,7 @@ export function RegisterComponent() {
 				password: password,
 				email: email,
 				disability_type: disability,
+				fullname: fullname,
 			}),
 		});
 
@@ -83,7 +90,9 @@ export function RegisterComponent() {
 			alignItems="center"
 			fontSize={"larger"}
 		>
-			<Box ><Image src='/logo-white.svg' alt='NeuroNote Logo' height={130}/></Box>
+			<Box>
+				<Image src="/logo-white.svg" alt="NeuroNote Logo" height={130} />
+			</Box>
 			<Stack
 				flexDir="column"
 				mb="2"
@@ -93,12 +102,24 @@ export function RegisterComponent() {
 				<Heading color="white.400" size={"2xl"} mt="6px">
 					Welcome to NeuroNote
 				</Heading>
-				<Text color="white.400" fontSize='2xl'>
+				<Text color="white.400" fontSize="2xl">
 					Please fill in and submit the form to register
 				</Text>
 				<Box minW={{ base: "90%", md: "468px" }}>
 					<form>
 						<Stack spacing={4} p="1rem" boxShadow="md">
+							<FormControl>
+								<InputGroup>
+									<Input
+										type="text"
+										placeholder="full name..."
+										fontSize={"larger"}
+										onChange={(e) => setFullname(e.target.value)}
+										value={fullname}
+										required
+									/>
+								</InputGroup>
+							</FormControl>
 							<FormControl>
 								{error.length > 0 && (
 									<FormHelperText
@@ -204,7 +225,13 @@ export function RegisterComponent() {
 			</Stack>
 			<Box>
 				Already a memeber?
-				<Link color="blue" href="/login" pl='4px'>
+				<Link
+					color="white"
+					textDecoration="underline"
+					fontWeight="bold"
+					href="/login"
+					pl="4px"
+				>
 					Login
 				</Link>
 			</Box>

@@ -26,7 +26,12 @@ export class User extends BaseEntity {
     password: string;
 
     @Column({ nullable: true, default: "" })
+    @ApiProperty()
     disability_type: string;
+
+    @Column({ nullable: true, default: null })
+    @ApiProperty()
+    fullname: string;
 
     @CreateDateColumn()
     @ApiProperty()

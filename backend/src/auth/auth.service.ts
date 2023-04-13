@@ -60,6 +60,7 @@ export class AuthService {
         newUser.email = registerDto.email;
         newUser.password = registerDto.password;
         newUser.disability_type = registerDto.disability_type;
+        newUser.fullname = registerDto.fullname;
         await newUser.save();
         console.log(newUser.disability_type);
         return this.signIn(registerDto.username, registerDto.password);
