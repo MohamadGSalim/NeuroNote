@@ -19,7 +19,6 @@ export default function LoginPage() {
 
 	return (
 		<div>
-			<Nav />
 			<LoginComponent />
 		</div>
 	);

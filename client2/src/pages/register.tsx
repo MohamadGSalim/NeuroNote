@@ -19,7 +19,6 @@ export default function RegisterPage() {
 
 	return (
 		<div>
-			<Nav />
 			<RegisterComponent />
 		</div>
 	);
