@@ -5,7 +5,7 @@ import { AppModule } from "./app.module";
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
-
+    app.enableCors();
     const config = new DocumentBuilder()
         .setTitle("Neuron Note API")
         .setDescription("SOEN 357 UI Project")

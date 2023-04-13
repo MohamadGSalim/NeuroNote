@@ -24,5 +24,5 @@ export class RegisterDto extends SignInDto {
     email: string;
 
     @ApiProperty()
-    disablility_type: string;
+    disability_type: string;
 }

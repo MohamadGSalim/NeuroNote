@@ -16,8 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
-import { State } from "../utils/state";
-
+import { useState as useAppState } from "../utils/state";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -27,8 +26,7 @@ export function LoginComponent() {
 	const [password, setPassword] = useState("");
 	const [username, setUsername] = useState("");
 	const [error, setError] = useState("");
-	const state = State();
-	
+	const state = useAppState();
 
 	const handleShowClick = () => setShowPassword(!showPassword);
 
@@ -59,7 +57,7 @@ export function LoginComponent() {
 				state.set("token", data.token);
 				state.reload();
 			} else {
-				setError(JSON.stringify(data));
+				setError(data?.message || "An error occurred. Please retry later.");
 			}
 		} catch (error) {
 			setError((error as Error).message);

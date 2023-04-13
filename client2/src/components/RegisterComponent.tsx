@@ -20,7 +20,7 @@ import {
 import { useState } from "react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-import { State } from "../utils/state";
+import { useState as useAppState } from "../utils/state";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaEmail = chakra(MdEmail);
@@ -35,11 +35,11 @@ export function RegisterComponent() {
 	const [disability, setDisability] = useState("");
 	const [error, setError] = useState("");
 	const handleShowClick = () => setShowPassword(!showPassword);
-	const state = State();
+	const state = useAppState();
 
 	async function login(e) {
+		e.preventDefault();
 		if (username.length === 0 || password.length === 0 || email.length === 0) {
-			e.preventDefault();
 			setError("Username, email or password cannot be empty");
 			return;
 		}
@@ -66,7 +66,7 @@ export function RegisterComponent() {
 				state.set("token", data.token);
 				state.reload();
 			} else {
-				setError(JSON.stringify(data));
+				setError(data?.message || "An error occurred. Please retry later.");
 			}
 		} catch (error) {
 			setError((error as Error).message);
@@ -193,7 +193,7 @@ export function RegisterComponent() {
 								colorScheme="facebook"
 								width="full"
 								fontSize={"larger"}
-								onClick={ (e) => login(e)}
+								onClick={(e) => login(e)}
 							>
 								Register
 							</Button>
