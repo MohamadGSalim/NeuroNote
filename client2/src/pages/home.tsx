@@ -13,7 +13,7 @@ import {
   Flex,
   Heading,
   Select,
-  Stack,
+  Switch,
 } from "@chakra-ui/react";
 import Nav from "../components/NavBar";
 import DimensionsProvider from "../utils/DimensionsProvider";
@@ -21,6 +21,7 @@ import PianoWithRecording from "../utils/PianoWithRecording";
 import { Component, useState } from "react";
 import { CiPlay1 } from "react-icons/ci";
 import { BsStop } from "react-icons/bs";
+import FrequencyChart from "./frequencyChart";
 const audioContext = new window.AudioContext();
 const soundfontHostname = "https://d1pzp51pvbm36p.cloudfront.net";
 
@@ -45,6 +46,7 @@ type Recording = {
 };
 
 type AppState = {
+  showResults: boolean;
   recording: Recording;
   instrument: string;
 };
@@ -58,12 +60,14 @@ const keyboardShortcuts = KeyboardShortcuts.create({
 
 export default class Home extends Component<{}, AppState> {
   scheduledEvents: NodeJS.Timeout[];
+
   constructor(props: {}) {
     super(props);
 
     this.scheduledEvents = [];
 
     this.state = {
+      showResults: true,
       recording: {
         mode: "RECORDING",
         events: [
@@ -95,6 +99,7 @@ export default class Home extends Component<{}, AppState> {
       },
       instrument: "acoustic_grand_piano",
     };
+    this.handleSwitchChange = this.handleSwitchChange.bind(this);
   }
   setRecording = (value: Partial<Recording>): void => {
     this.setState({
@@ -153,6 +158,9 @@ export default class Home extends Component<{}, AppState> {
       instrument: event,
     });
   };
+  handleSwitchChange(event) {
+    this.setState({ showResults: event.target.checked});
+  }
   render(): JSX.Element {
     return (
       <Box>
@@ -162,13 +170,27 @@ export default class Home extends Component<{}, AppState> {
             Jam Session 🎹
           </Heading>
         </Center>
+        <Box display="flex">
         <Card width="fit-content" ml={4}>
           <CardBody>
+            <Box>
             Device connection status:{" "}
             <Badge colorScheme="green">Connected</Badge>
+            </Box>
+            <Box mt="10px">
+            Show results:{" "}
+            <Switch size='lg' isChecked={this.state.showResults} onChange={this.handleSwitchChange}/>
+            </Box>
           </CardBody>
         </Card>
-        <Box w="100%" h="300px"></Box>
+
+        </Box>
+        <Box w="100%" h="300px" mb={6} display={this.state.showResults ? "block" : "none"}>
+          <Center>
+            <FrequencyChart />
+          </Center>
+        </Box>
+
         <Flex direction="row" justifyContent="center">
           <Button
             leftIcon={<CiPlay1 />}
