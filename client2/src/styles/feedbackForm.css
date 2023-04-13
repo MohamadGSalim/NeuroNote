@@ -1,0 +1,25 @@
+button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+  .on {
+    color: #f1ed0b;
+  }
+  .off {
+    color: #ccc;
+  }
+
+#feedback_star{
+    padding: 10px;
+    height: 90px;
+    width: 80px;
+    size: 40px;
+    font-size: 50px;
+}
+
+#feedback_question_header{
+    padding: 20px;
+}
+

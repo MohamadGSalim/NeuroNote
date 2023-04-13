@@ -13,7 +13,18 @@ import {
   Flex,
   Heading,
   Select,
-  Stack,
+  Switch,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  List,
+  ListItem,
+  ListIcon,
+  Icon,
 } from "@chakra-ui/react";
 import Nav from "../components/NavBar";
 import DimensionsProvider from "../utils/DimensionsProvider";
@@ -21,6 +32,10 @@ import PianoWithRecording from "../utils/PianoWithRecording";
 import { Component, useState } from "react";
 import { CiPlay1 } from "react-icons/ci";
 import { BsStop } from "react-icons/bs";
+import { BiBrain } from "react-icons/bi";
+import { MdCheckCircle } from "react-icons/md";
+
+import FrequencyChart from "./frequencyChart";
 const audioContext = new window.AudioContext();
 const soundfontHostname = "https://d1pzp51pvbm36p.cloudfront.net";
 
@@ -45,6 +60,10 @@ type Recording = {
 };
 
 type AppState = {
+  loadingConnection: boolean
+  showResults: boolean;
+  deviceConnected: boolean;
+  modalIsOpen: boolean;
   recording: Recording;
   instrument: string;
 };
@@ -58,12 +77,17 @@ const keyboardShortcuts = KeyboardShortcuts.create({
 
 export default class Home extends Component<{}, AppState> {
   scheduledEvents: NodeJS.Timeout[];
+
   constructor(props: {}) {
     super(props);
 
     this.scheduledEvents = [];
 
     this.state = {
+      loadingConnection: false,
+      showResults: true,
+      modalIsOpen: false,
+      deviceConnected: false,
       recording: {
         mode: "RECORDING",
         events: [
@@ -95,6 +119,11 @@ export default class Home extends Component<{}, AppState> {
       },
       instrument: "acoustic_grand_piano",
     };
+    this.handleSwitchChange = this.handleSwitchChange.bind(this);
+    this.onOpenModal = this.onOpenModal.bind(this);
+    this.onCloseModal = this.onCloseModal.bind(this);
+    this.connectDevice = this.connectDevice.bind(this);
+    this.setConnectionLoading = this.setConnectionLoading.bind(this)
   }
   setRecording = (value: Partial<Recording>): void => {
     this.setState({
@@ -148,12 +177,41 @@ export default class Home extends Component<{}, AppState> {
       this.onClickStop();
     }, this.getRecordingEndTime() * 1000);
   };
+
   changeInstrument = (event: string): void => {
     this.setState({
       instrument: event,
     });
   };
+
+  handleSwitchChange(event) {
+    this.setState({ showResults: event.target.checked});
+  }
+
+  onOpenModal() {
+    this.setState({ modalIsOpen: true });
+  }
+
+  onCloseModal() {
+    this.setState({ modalIsOpen: false });
+  }
+
+  connectDevice() {
+    this.setConnectionLoading();
+    setTimeout(() => {
+      this.setConnectionLoading();
+      this.setState({ deviceConnected: true });
+      this.onCloseModal();
+    }, 2000);
+
+  }
+
+  setConnectionLoading() {
+    this.setState({ loadingConnection: !this.state.loadingConnection });
+  }
+  
   render(): JSX.Element {
+    
     return (
       <Box>
         <Nav />
@@ -162,20 +220,35 @@ export default class Home extends Component<{}, AppState> {
             Jam Session 🎹
           </Heading>
         </Center>
+        <Box display="flex">
         <Card width="fit-content" ml={4}>
           <CardBody>
+            <Box>
             Device connection status:{" "}
-            <Badge colorScheme="green">Connected</Badge>
+            {!this.state.deviceConnected && <Badge colorScheme="red">Not connected</Badge>}
+            {this.state.deviceConnected && <Badge colorScheme="green">Connected</Badge>}
+            </Box>
+            <Box mt="10px">
+            Show results:{" "}
+            <Switch size='lg' isChecked={this.state.showResults} onChange={this.handleSwitchChange}/>
+            </Box>
           </CardBody>
         </Card>
-        <Box w="100%" h="300px"></Box>
+
+        </Box>
+        <Box w="100%" h="300px" mb={6} display={this.state.showResults ? "block" : "none"}>
+          <Center>
+            <FrequencyChart />
+          </Center>
+        </Box>
+
         <Flex direction="row" justifyContent="center">
           <Button
             leftIcon={<CiPlay1 />}
             colorScheme="gray"
             variant="solid"
             m={4}
-            onClick={this.onClickPlay}
+            onClick={this.onOpenModal}
           >
             Play
           </Button>
@@ -345,6 +418,37 @@ export default class Home extends Component<{}, AppState> {
             />
           )}
         </DimensionsProvider>
+        <Modal isOpen={this.state.modalIsOpen} onClose={this.onCloseModal}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader textAlign='center'>Device is not connected!</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Box>
+            The EEG device is not connected. 
+            Before you can begin, you'll need to connect your EEG device. 
+            To connect your device, make sure you follow these steps:  
+            </Box>
+            <List spacing={3} m="12px">
+              <ListItem>
+                <ListIcon as={MdCheckCircle} color='green.500' />
+                Make sure it's powered on
+              </ListItem>
+              <ListItem>
+                <ListIcon as={MdCheckCircle} color='green.500' />
+                Within range of your computer
+              </ListItem>
+            </List>
+            <Box>
+              Once your EEG device is connected, you'll be able to use our app to monitor your brain activity and track your progress over time.
+            </Box>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button isLoading={this.state.loadingConnection} loadingText='Connecting' variant='solid' colorScheme="green" leftIcon={<BiBrain/>} onClick={this.connectDevice}>Connect Device</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
       </Box>
     );
   }

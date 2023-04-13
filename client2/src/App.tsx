@@ -9,7 +9,8 @@ import Home from "./pages/home";
 import Diary from "./pages/diary";
 import Feedback from "./pages/feedback";
 import ThankYou from "./pages/thankyou";
-
+import FrequencyChart from "./pages/frequencyChart";
+import Profile from "./pages/profile";
 
 function App() {
   return (
@@ -22,7 +23,8 @@ function App() {
           <Route path="/diary" element = {<Diary />} />
           <Route path="/feedback" element = {<Feedback />} />
           <Route path="/thankyou" element = {<ThankYou />} />
-
+          <Route path="/chart" Component={FrequencyChart} />
+          <Route path="/profile" Component={Profile} />
         </Routes>
       </Router>
     </ChakraProvider>

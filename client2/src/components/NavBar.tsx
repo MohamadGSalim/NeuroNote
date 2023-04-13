@@ -20,6 +20,7 @@ import {
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useState as useAppState } from "../utils/state";
+import Profile from "../pages/profile";
 
 const NavLink = ({ children }: { children: ReactNode }) => (
 	<Link
@@ -123,8 +124,7 @@ export default function Nav() {
 									</Center>
 									<br />
 									<MenuDivider />
-									<MenuItem>Your Servers</MenuItem>
-									<MenuItem>Account Settings</MenuItem>
+									<MenuItem as >Account Settings</MenuItem>
 									{isLoggedIn() ? (
 										<MenuItem onClick={logout}>Logout</MenuItem>
 									) : (
