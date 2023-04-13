@@ -18,6 +18,7 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import Profile from "../pages/profile";
 
 const NavLink = ({ children }: { children: ReactNode }) => (
   <Link
@@ -82,6 +83,7 @@ export default function Nav() {
                   <br />
                   <MenuDivider />
                   <MenuItem>Your Servers</MenuItem>
+                  <MenuItem as='a' href="/profile">Profile</MenuItem>
                   <MenuItem>Account Settings</MenuItem>
                   <MenuItem>Logout</MenuItem>
                 </MenuList>
