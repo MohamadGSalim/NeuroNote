@@ -1,5 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
+import { useNavigate} from 'react-router-dom';
+
 import {
 Box,
 Heading,
@@ -10,37 +12,26 @@ Radio,
 RadioGroup,
 useToast,
 Stack,
+Icon,
 } from '@chakra-ui/react';
 import Nav from '../components/NavBar';
+import {MdOutlineFeedback} from 'react-icons/md';
 
 export default function Feedback() {
-   const [visualizations, setVisualizations] = useState('');
-   const [features, setFeatures] = useState('');
-   const [distracting, setDistracting] = useState('');
-   const [design, setDesign] = useState('');
-   const [accuracy, setAccuracy] = useState('');
-   const [feedback, setFeedback] = useState('');
-   const [, setSubmitted] = useState(false);
+const [visualizations, setVisualizations] = useState('');
+const [features, setFeatures] = useState('');
+const [distracting, setDistracting] = useState('');
+const [design, setDesign] = useState('');
+const [accuracy, setAccuracy] = useState('');
+const [feedback, setFeedback] = useState('');
+const [, setSubmitted] = useState(false);
+const navigate = useNavigate();
 
-const toast = useToast();
-
-const handleSubmit = (e) => {
-   e.preventDefault();
-   setSubmitted(true);
-toast({
-   title: 'Feedback submitted',
-   description: 'Thank you for your feedback!',
-   status: 'success',
-   duration: 5000,
-   isClosable: true,
-});
-setVisualizations('');
-setFeatures('');
-setDistracting('');
-setDesign('');
-setAccuracy('');
-setFeedback('');
-};
+const handleSubmit = (event: { preventDefault: () => void }) => {
+   event.preventDefault()
+   setSubmitted(true)
+   navigate ('/thankyou')
+ }
 
 return (
   <Box>  
@@ -51,10 +42,10 @@ return (
       <Nav />
       <Box p="4" bg="black.100" textAlign="center">
          <Box  w="100%" maxWidth="50rem" mx="auto" p="4">
-         <Heading fontSize={'58px'} as="h1" mb="4">
-            Feedback
+         <Heading fontSize={'50px'} as="h1" mb="4">
+            Give Us Your Feedback <Icon as={MdOutlineFeedback} />
          </Heading>
-         <Box fontSize={'36px'} as="p" mb="8" fontWeight="bold">
+         <Box fontSize={'28px'} as="p" mb="8" fontWeight="bold" >
             Answer the following questions to provide feedback on your experience with NeuroNote.
          </Box>
          <form onSubmit={handleSubmit}>

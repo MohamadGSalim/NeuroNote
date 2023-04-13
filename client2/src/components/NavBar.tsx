@@ -81,15 +81,9 @@ export default function Nav() {
 								{colorMode === "light" ? <MoonIcon /> : <SunIcon />}
 							</Button>
 
-							<Link as={RouterLink} to="/feedback">
-								<Button colorScheme="teal" variant="outline">
-									Feedback
-								</Button>
-							</Link>
-
 							<Link as={RouterLink} to="/diary">
-								<Button colorScheme="teal" variant="outline">
-									Diary
+								<Button variant="outline">
+									Submit Diary
 								</Button>
 							</Link>
 
@@ -124,7 +118,9 @@ export default function Nav() {
 									</Center>
 									<br />
 									<MenuDivider />
-									<MenuItem as >Account Settings</MenuItem>
+									<MenuItem as='a' href="/">Jam Session</MenuItem>
+									<MenuItem as='a' href="/profile">My Profile</MenuItem>
+									<MenuItem as='a' href="/feedback">Give Feedback</MenuItem>
 									{isLoggedIn() ? (
 										<MenuItem onClick={logout}>Logout</MenuItem>
 									) : (

@@ -1,5 +1,5 @@
 import {
-	Avatar,
+	Image,
 	Box,
 	Button,
 	chakra,
@@ -13,6 +13,7 @@ import {
 	InputRightElement,
 	Link,
 	Stack,
+	Text
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
@@ -73,16 +74,19 @@ export function LoginComponent() {
 			alignItems="center"
 			fontSize={"larger"}
 		>
+			<Box ><Image src='/logo-white.svg' alt='NeuroNote Logo' height={130}/></Box>
 			<Stack
 				flexDir="column"
 				mb="2"
 				justifyContent="center"
 				alignItems="center"
 			>
-				<Avatar bg="white.500" />
-				<Heading color="white.400" size={"2xl"}>
-					Welcome
+			<Heading color="white.400" size={"2xl"} mt="6px">
+					Welcome to NeuroNote
 				</Heading>
+				<Text color="white.400" fontSize='2xl'>
+					Please fill in and submit the form to login
+				</Text>
 				<Box minW={{ base: "90%", md: "468px" }}>
 					<form>
 						<Stack spacing={4} p="1rem" boxShadow="md">
@@ -138,10 +142,7 @@ export function LoginComponent() {
 								</FormHelperText> */}
 							</FormControl>
 							<Button
-								borderRadius={0}
 								type="submit"
-								variant="solid"
-								colorScheme="facebook"
 								width="full"
 								fontSize={"larger"}
 								onClick={(e) => login(e)}
@@ -154,7 +155,7 @@ export function LoginComponent() {
 			</Stack>
 			<Box>
 				New to us?{" "}
-				<Link color="white.500" href="/register">
+				<Link color="blue" href="/register">
 					Sign Up
 				</Link>
 			</Box>

@@ -13,9 +13,10 @@ import {
   SliderFilledTrack,
   SliderThumb,
   SliderTrack,
-  Center,
+  Icon,
 } from '@chakra-ui/react';
 import Nav from '../components/NavBar';
+import {SlNotebook} from 'react-icons/sl';
 
 
 
@@ -89,11 +90,11 @@ export default function Diary() {
          <meta name="viewport" content="width=device-width, initial-scale=1" />
       
       <Nav />
-      <Container maxW="container.lg" mt={12}>
+      <Container maxW="container.lg" mt={12} pb={8}>
          <center>
-         <Heading fontSize="50px" as="h1" mb={20}>NeuroNote Diary</Heading>
+         <Heading fontSize="50px" as="h1" mb={4}>NeuroNote Diary <Icon as={SlNotebook}/></Heading>
          </center>
-            <Text  fontSize="30px" fontWeight="bold" mb={16}>Please slide the emojis below to indicate your level of satisfaction with NeuroNote.</Text>
+            <Text  fontSize="28px" fontWeight="bold" mb={8} textAlign='center'>Please slide the emojis below to indicate your level of satisfaction with NeuroNote.</Text>
             <Box as="form" onSubmit={handleSubmit}>
             <Box mb={4}>
                <FormLabel fontSize="25px" htmlFor="satisfaction">How satisfied are you with your music creation experience using NeuroNote today?</FormLabel>
@@ -170,7 +171,16 @@ export default function Diary() {
                <Textarea   height="320px" fontSize="25px" name="comments" id="comments" value={comments} onChange={(event) => setComments(event.target.value)} border="2px" />
             </Box>
             <center>
-            <Button fontSize="25px" type="submit">Submit</Button>
+            <Button
+            type="submit"
+            colorScheme="blue"
+            size="lg"
+            w="100%"
+            maxWidth="20rem"
+            mx="auto"
+            >
+               Submit
+            </Button>
             </center>
             </Box>
       </Container>
