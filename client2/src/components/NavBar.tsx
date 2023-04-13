@@ -100,7 +100,7 @@ export default function Nav() {
 										src={"https://avatars.dicebear.com/api/male/username.svg"}
 									/>
 								</MenuButton>
-								<MenuList alignItems={"center"}>
+								<MenuList alignItems={"center"} zIndex='100'>
 									<br />
 									<Center>
 										<Avatar
