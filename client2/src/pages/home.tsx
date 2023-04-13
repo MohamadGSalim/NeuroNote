@@ -60,7 +60,9 @@ type Recording = {
 };
 
 type AppState = {
+  loadingConnection: boolean
   showResults: boolean;
+  deviceConnected: boolean;
   modalIsOpen: boolean;
   recording: Recording;
   instrument: string;
@@ -82,8 +84,10 @@ export default class Home extends Component<{}, AppState> {
     this.scheduledEvents = [];
 
     this.state = {
+      loadingConnection: false,
       showResults: true,
       modalIsOpen: false,
+      deviceConnected: false,
       recording: {
         mode: "RECORDING",
         events: [
@@ -118,6 +122,8 @@ export default class Home extends Component<{}, AppState> {
     this.handleSwitchChange = this.handleSwitchChange.bind(this);
     this.onOpenModal = this.onOpenModal.bind(this);
     this.onCloseModal = this.onCloseModal.bind(this);
+    this.connectDevice = this.connectDevice.bind(this);
+    this.setConnectionLoading = this.setConnectionLoading.bind(this)
   }
   setRecording = (value: Partial<Recording>): void => {
     this.setState({
@@ -189,6 +195,20 @@ export default class Home extends Component<{}, AppState> {
   onCloseModal() {
     this.setState({ modalIsOpen: false });
   }
+
+  connectDevice() {
+    this.setConnectionLoading();
+    setTimeout(() => {
+      this.setConnectionLoading();
+      this.setState({ deviceConnected: true });
+      this.onCloseModal();
+    }, 2000);
+
+  }
+
+  setConnectionLoading() {
+    this.setState({ loadingConnection: !this.state.loadingConnection });
+  }
   
   render(): JSX.Element {
     
@@ -205,7 +225,8 @@ export default class Home extends Component<{}, AppState> {
           <CardBody>
             <Box>
             Device connection status:{" "}
-            <Badge colorScheme="green">Connected</Badge>
+            {!this.state.deviceConnected && <Badge colorScheme="red">Not connected</Badge>}
+            {this.state.deviceConnected && <Badge colorScheme="green">Connected</Badge>}
             </Box>
             <Box mt="10px">
             Show results:{" "}
@@ -403,11 +424,12 @@ export default class Home extends Component<{}, AppState> {
           <ModalHeader textAlign='center'>Device is not connected!</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
+            <Box>
             The EEG device is not connected. 
             Before you can begin, you'll need to connect your EEG device. 
-            To connect your device, make sure you follow these steps:
-            <br />
-            <List spacing={3}>
+            To connect your device, make sure you follow these steps:  
+            </Box>
+            <List spacing={3} m="12px">
               <ListItem>
                 <ListIcon as={MdCheckCircle} color='green.500' />
                 Make sure it's powered on
@@ -417,12 +439,13 @@ export default class Home extends Component<{}, AppState> {
                 Within range of your computer
               </ListItem>
             </List>
-            <br />
-            Once your EEG device is connected, you'll be able to use our app to monitor your brain activity and track your progress over time.
+            <Box>
+              Once your EEG device is connected, you'll be able to use our app to monitor your brain activity and track your progress over time.
+            </Box>
           </ModalBody>
 
           <ModalFooter>
-            <Button variant='solid' colorScheme="green" leftIcon={<BiBrain/>}>Connect Device</Button>
+            <Button isLoading={this.state.loadingConnection} loadingText='Connecting' variant='solid' colorScheme="green" leftIcon={<BiBrain/>} onClick={this.connectDevice}>Connect Device</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
