@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Chart, Line } from 'react-chartjs-2';
-import Nav from '../components/NavBar';
-
+import { useState, useEffect } from "react";
+import { Line } from "react-chartjs-2";
+import Nav from "../components/NavBar";
+import { BiSad } from "react-icons/bi";
+import { Box, Icon } from "@chakra-ui/react";
+import { Text, Heading } from "@chakra-ui/react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,7 +13,7 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
+} from "chart.js";
 
 ChartJS.register(
   CategoryScale,
@@ -23,10 +25,6 @@ ChartJS.register(
   Legend
 );
 
-const generateRandomFrequency = () => {
-  return Math.floor(Math.random() * 100);
-};
-
 const options = {
   maintainAspectRatio: false,
   responsive: true,
@@ -36,7 +34,7 @@ const options = {
     },
     title: {
       display: false,
-      text: 'Frequency/Time Line Chart',
+      text: "Frequency/Time Line Chart",
       font: {
         size: 16,
       },
@@ -46,7 +44,7 @@ const options = {
     x: {
       title: {
         display: true,
-        text: 'Time (s)',
+        text: "Time (s)",
         font: {
           size: 12,
         },
@@ -58,7 +56,7 @@ const options = {
     y: {
       title: {
         display: true,
-        text: 'Frequency (Hz)',
+        text: "Frequency (Hz)",
         font: {
           size: 12,
         },
@@ -68,19 +66,16 @@ const options = {
 };
 
 const FrequencyChart = () => {
+  const [currentFrequecy, setCurrentFrequency] = useState(90);
+  const [currentTimer, setCurrentTimer] = useState(0);
+
   const [data, setData] = useState({
-    labels: ['0s', '1s', '2s', '3s', '4s'],
+    labels: ["0s", "1s"],
     datasets: [
       {
-        data: [
-          generateRandomFrequency(),
-          generateRandomFrequency(),
-          generateRandomFrequency(),
-          generateRandomFrequency(),
-          generateRandomFrequency(),
-        ],
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        data: [50, 50],
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
         pointRadius: 5,
         lineTension: 0.4,
       },
@@ -90,7 +85,8 @@ const FrequencyChart = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       const newData = data.datasets.map((dataset) => {
-        const newDataPoint = generateRandomFrequency();
+        setCurrentTimer(currentTimer + 1);
+        const newDataPoint = 50 - Math.sin(currentTimer / 10) * 10;
         const updatedData = dataset.data.slice(-4);
         updatedData.push(newDataPoint);
         return { ...dataset, data: updatedData };
@@ -110,12 +106,18 @@ const FrequencyChart = () => {
   }, [data]);
 
   return (
-    //<div>
-        //<Nav />
-        <div style={{ width: '400px', height: '300px' }}>
-            <Line data={data} options={options} />
-        </div>
-    //</div>
+    <Box display="flex">
+      <Box style={{ width: "400px", height: "300px" }}>
+        <Line data={data} options={options} />
+      </Box>
+      <Box height="300px" ml="12">
+        <Heading as="h2" size="xl" textAlign="center">
+          State
+        </Heading>
+        <Icon as={BiSad} height="150px" width="150px"/>
+        <Text textAlign="center">Stressed, angry, down</Text>
+      </Box>
+    </Box>
   );
 };
 
