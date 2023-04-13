@@ -10,17 +10,18 @@ import Diary from "./pages/diary";
 import Feedback from "./pages/feedback";
 import ThankYou from "./pages/thankyou";
 
+
 function App() {
   return (
     <ChakraProvider>
       <Router>
         <Routes>
-          <Route path="/login" Component={Login} />
-          <Route path="/register" Component={Register} />
-          <Route path="/" Component={Home} />
-          <Route path="/diary" Component={Diary} />
-          <Route path="/feedback" Component={Feedback} />
-          <Route path="/thankyou" Component={ThankYou} />
+          <Route path="/login" element = {<Login />} />
+          <Route path="/register" element = {<Register />} />
+          <Route path="/" element = {<Home />} />
+          <Route path="/diary" element = {<Diary />} />
+          <Route path="/feedback" element = {<Feedback />} />
+          <Route path="/thankyou" element = {<ThankYou />} />
 
         </Routes>
       </Router>
