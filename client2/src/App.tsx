@@ -6,20 +6,25 @@ import Register from "./pages/register";
 import Login from "./pages/login";
 import { ChakraProvider } from "@chakra-ui/react";
 import Home from "./pages/home";
+import Diary from "./pages/diary";
+import Feedback from "./pages/feedback";
+import ThankYou from "./pages/thankyou";
 import FrequencyChart from "./pages/frequencyChart";
 import Profile from "./pages/profile";
-import FeedbackForm from "./pages/feedback";
+
 function App() {
   return (
     <ChakraProvider>
       <Router>
         <Routes>
-          <Route path="/login" Component={Login} />
-          <Route path="/register" Component={Register} />
-          <Route path="/" Component={Home} />
+          <Route path="/login" element = {<Login />} />
+          <Route path="/register" element = {<Register />} />
+          <Route path="/" element = {<Home />} />
+          <Route path="/diary" element = {<Diary />} />
+          <Route path="/feedback" element = {<Feedback />} />
+          <Route path="/thankyou" element = {<ThankYou />} />
           <Route path="/chart" Component={FrequencyChart} />
           <Route path="/profile" Component={Profile} />
-          <Route path="/feedback" Component={FeedbackForm}></Route>
         </Routes>
       </Router>
     </ChakraProvider>

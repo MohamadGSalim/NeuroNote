@@ -17,8 +17,15 @@ export class AuthService {
 
     async signIn(username: string, pass: string): Promise<LoginResponse> {
         const user = await this.usersService.findOne(username);
+
+        if (!user) {
+            throw new BadRequestException(
+                "User does not exist. Invalid username",
+            );
+        }
+
         if (user?.password !== pass) {
-            throw new UnauthorizedException();
+            throw new BadRequestException("username and password do not match");
         }
         const { password, ...result } = user;
         // TODO: Generate a JWT and return it here
@@ -39,16 +46,22 @@ export class AuthService {
         });
 
         if (user) {
-            throw new BadRequestException("User already exists");
+            if (user.email == registerDto.email)
+                throw new BadRequestException("This email is already in use");
+            else if (user.username == registerDto.username)
+                throw new BadRequestException(
+                    "This username is already in use",
+                );
+            else throw new BadRequestException("This user already exists");
         }
 
         const newUser = new User();
         newUser.username = registerDto.username;
         newUser.email = registerDto.email;
         newUser.password = registerDto.password;
-        newUser.disablility_type = registerDto.disablility_type;
+        newUser.disability_type = registerDto.disability_type;
         await newUser.save();
-
+        console.log(newUser.disability_type);
         return this.signIn(registerDto.username, registerDto.password);
     }
 }
