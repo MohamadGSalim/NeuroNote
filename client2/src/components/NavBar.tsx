@@ -78,13 +78,12 @@ export default function Nav() {
                   </Center>
                   <br />
                   <Center>
-                    <p>Username</p>
+                    <p>Roger Sioufi</p>
                   </Center>
                   <br />
                   <MenuDivider />
-                  <MenuItem>Your Servers</MenuItem>
+                  <MenuItem as='a' href="/">Jam Session</MenuItem>
                   <MenuItem as='a' href="/profile">Profile</MenuItem>
-                  <MenuItem>Account Settings</MenuItem>
                   <MenuItem>Logout</MenuItem>
                 </MenuList>
               </Menu>

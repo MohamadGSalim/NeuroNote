@@ -14,6 +14,17 @@ import {
   Heading,
   Select,
   Switch,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  List,
+  ListItem,
+  ListIcon,
+  Icon,
 } from "@chakra-ui/react";
 import Nav from "../components/NavBar";
 import DimensionsProvider from "../utils/DimensionsProvider";
@@ -21,6 +32,9 @@ import PianoWithRecording from "../utils/PianoWithRecording";
 import { Component, useState } from "react";
 import { CiPlay1 } from "react-icons/ci";
 import { BsStop } from "react-icons/bs";
+import { BiBrain } from "react-icons/bi";
+import { MdCheckCircle } from "react-icons/md";
+
 import FrequencyChart from "./frequencyChart";
 const audioContext = new window.AudioContext();
 const soundfontHostname = "https://d1pzp51pvbm36p.cloudfront.net";
@@ -47,6 +61,7 @@ type Recording = {
 
 type AppState = {
   showResults: boolean;
+  modalIsOpen: boolean;
   recording: Recording;
   instrument: string;
 };
@@ -68,6 +83,7 @@ export default class Home extends Component<{}, AppState> {
 
     this.state = {
       showResults: true,
+      modalIsOpen: false,
       recording: {
         mode: "RECORDING",
         events: [
@@ -100,6 +116,8 @@ export default class Home extends Component<{}, AppState> {
       instrument: "acoustic_grand_piano",
     };
     this.handleSwitchChange = this.handleSwitchChange.bind(this);
+    this.onOpenModal = this.onOpenModal.bind(this);
+    this.onCloseModal = this.onCloseModal.bind(this);
   }
   setRecording = (value: Partial<Recording>): void => {
     this.setState({
@@ -153,15 +171,27 @@ export default class Home extends Component<{}, AppState> {
       this.onClickStop();
     }, this.getRecordingEndTime() * 1000);
   };
+
   changeInstrument = (event: string): void => {
     this.setState({
       instrument: event,
     });
   };
+
   handleSwitchChange(event) {
     this.setState({ showResults: event.target.checked});
   }
+
+  onOpenModal() {
+    this.setState({ modalIsOpen: true });
+  }
+
+  onCloseModal() {
+    this.setState({ modalIsOpen: false });
+  }
+  
   render(): JSX.Element {
+    
     return (
       <Box>
         <Nav />
@@ -197,7 +227,7 @@ export default class Home extends Component<{}, AppState> {
             colorScheme="gray"
             variant="solid"
             m={4}
-            onClick={this.onClickPlay}
+            onClick={this.onOpenModal}
           >
             Play
           </Button>
@@ -367,6 +397,35 @@ export default class Home extends Component<{}, AppState> {
             />
           )}
         </DimensionsProvider>
+        <Modal isOpen={this.state.modalIsOpen} onClose={this.onCloseModal}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader textAlign='center'>Device is not connected!</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            The EEG device is not connected. 
+            Before you can begin, you'll need to connect your EEG device. 
+            To connect your device, make sure you follow these steps:
+            <br />
+            <List spacing={3}>
+              <ListItem>
+                <ListIcon as={MdCheckCircle} color='green.500' />
+                Make sure it's powered on
+              </ListItem>
+              <ListItem>
+                <ListIcon as={MdCheckCircle} color='green.500' />
+                Within range of your computer
+              </ListItem>
+            </List>
+            <br />
+            Once your EEG device is connected, you'll be able to use our app to monitor your brain activity and track your progress over time.
+          </ModalBody>
+
+          <ModalFooter>
+            <Button variant='solid' colorScheme="green" leftIcon={<BiBrain/>}>Connect Device</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
       </Box>
     );
   }
