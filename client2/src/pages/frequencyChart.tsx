@@ -66,7 +66,7 @@ const options = {
 
 const FrequencyChart = () => {
   const [currentFrequecy, setCurrentFrequency] = useState(30);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);  // Initially, Graph not moving
   const [currentTimer, setCurrentTimer] = useState(0);
   const [data, setData] = useState({
     labels: ["0s", "1s"],
@@ -90,7 +90,8 @@ const FrequencyChart = () => {
   }
   useEffect(() => {
     let interval;
-    if(isPlaying){
+    if(isPlaying)  // if playing, then start the graph
+    {
        interval = setInterval(() => {
         const newData = data.datasets.map((dataset) => {
           setCurrentTimer(currentTimer + 1);
@@ -110,13 +111,45 @@ const FrequencyChart = () => {
         });
     }, 1000); // change data every 1s
     }
-    return () => clearInterval(interval);
-  }, [data])
+    return () => clearInterval(interval);  // DO NOT DELETE; Apparently, removing this line breaks the code
+  }, [data, isPlaying])  // Added "isPlaying" to the dependencies of the useEffect Hook to detect change of state of "isPlaying"
+
+
+  // Add a function to start the graph
+  function startGraph() {
+    setIsPlaying(true);
+  }
+
+  // Add a function to stop and reset the graph
+  function stopResetGraph() {
+    setIsPlaying(false);
+    // The following lines are to reset the graph
+    setCurrentTimer(0);
+    setCurrentFrequency(30);
+    setData({
+      labels: ["0s", "1s"],
+      datasets: [
+        {
+          data: [30, 30],
+          borderColor: "rgb(255, 99, 132)",
+          backgroundColor: "rgba(255, 99, 132, 0.5)",
+          pointRadius: 5,
+          lineTension: 0.4,
+        },
+      ],
+    });
+  }
+
 
   return (
     <Box display="flex" mt="10px">
       <Box style={{ width: "400px", height: "300px" }}>
         <Line data={data} options={options} />
+
+        {/* Two buttons added for TESTING purposes
+        <Button onClick={startGraph}>Start</Button>
+        <Button onClick={stopResetGraph}>Stop</Button> */}
+
       </Box>
       <Box height="300px" ml="12" textAlign="center">
         <Heading as="h2" size="xl" textAlign="center">
