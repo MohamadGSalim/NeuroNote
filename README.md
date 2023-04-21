@@ -1,3 +1,8 @@
+<picture>
+ <source media="(prefers-color-scheme: light)" srcset="https://github.com/rogersi9/NeuroNote/blob/main/client2/public/logo-black.svg">
+ <img alt="Shows an illustrated sun in light color mode and a moon with stars in dark color mode." src="https://github.com/rogersi9/NeuroNote/blob/main/client2/public/logo-white.svg">
+</picture>
+
 # Setting up the project
 
 # Backend setup
