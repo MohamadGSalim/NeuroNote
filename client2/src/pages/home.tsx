@@ -29,13 +29,14 @@ import {
 import Nav from "../components/NavBar";
 import DimensionsProvider from "../utils/DimensionsProvider";
 import PianoWithRecording from "../utils/PianoWithRecording";
-import { Component, useState } from "react";
+import React, { Component } from "react";
 import { CiPlay1 } from "react-icons/ci";
 import { BsStop } from "react-icons/bs";
 import { BiBrain } from "react-icons/bi";
 import { MdCheckCircle } from "react-icons/md";
 
 import FrequencyChart from "./frequencyChart";
+import { notes } from "../utils/notes";
 const audioContext = new window.AudioContext();
 const soundfontHostname = "https://d1pzp51pvbm36p.cloudfront.net";
 
@@ -77,11 +78,13 @@ const keyboardShortcuts = KeyboardShortcuts.create({
 
 export default class Home extends Component<{}, AppState> {
   scheduledEvents: NodeJS.Timeout[];
+  graphRef;
 
   constructor(props: {}) {
     super(props);
-
     this.scheduledEvents = [];
+
+    this.graphRef = React.createRef();
 
     this.state = {
       loadingConnection: false,
@@ -90,30 +93,7 @@ export default class Home extends Component<{}, AppState> {
       deviceConnected: false,
       recording: {
         mode: "RECORDING",
-        events: [
-          { midiNumber: 45, time: 0, duration: 0.6 },
-          { midiNumber: 47, time: 0.7, duration: 0.3 },
-          { midiNumber: 50, time: 1, duration: 0.6 },
-          { midiNumber: 52, time: 1.7, duration: 0.3 },
-          { midiNumber: 53, time: 2, duration: 0.6 },
-          { midiNumber: 50, time: 2.7, duration: 0.3 },
-          { midiNumber: 48, time: 3, duration: 0.6 },
-          { midiNumber: 50, time: 3.7, duration: 0.3 },
-          { midiNumber: 52, time: 4, duration: 0.6 },
-          { midiNumber: 50, time: 4.7, duration: 0.3 },
-          { midiNumber: 48, time: 5, duration: 0.6 },
-          { midiNumber: 45, time: 5.7, duration: 0.3 },
-          { midiNumber: 43, time: 6, duration: 0.6 },
-          { midiNumber: 45, time: 6.7, duration: 0.3 },
-          { midiNumber: 47, time: 7, duration: 0.6 },
-          { midiNumber: 45, time: 7.7, duration: 0.3 },
-          { midiNumber: 43, time: 8, duration: 0.6 },
-          { midiNumber: 40, time: 8.7, duration: 0.3 },
-          { midiNumber: 43, time: 9, duration: 0.6 },
-          { midiNumber: 45, time: 9.7, duration: 0.3 },
-          { midiNumber: 47, time: 10, duration: 0.6 },
-          { midiNumber: 45, time: 10.7, duration: 0.3 },
-        ],
+        events: notes,
         currentTime: 0,
         currentEvents: [],
       },
@@ -132,6 +112,7 @@ export default class Home extends Component<{}, AppState> {
   };
 
   onClickStop = (): void => {
+    this.graphRef.current.stopResetGraph();
     this.scheduledEvents.forEach((scheduledEvent) => {
       clearTimeout(scheduledEvent);
     });
@@ -202,6 +183,8 @@ export default class Home extends Component<{}, AppState> {
       this.setConnectionLoading();
       this.setState({ deviceConnected: true });
       this.onCloseModal();
+      this.graphRef.current.startGraph();
+      this.onClickPlay()
     }, 2000);
 
   }
@@ -238,7 +221,7 @@ export default class Home extends Component<{}, AppState> {
         </Box>
         <Box w="100%" h="300px" mb={6} display={this.state.showResults ? "block" : "none"}>
           <Center>
-            <FrequencyChart />
+            <FrequencyChart ref={this.graphRef}/>
           </Center>
         </Box>
 
