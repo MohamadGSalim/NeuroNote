@@ -17,8 +17,9 @@ import {
 	Switch,
 	Textarea,
 	Text,
+	useColorMode,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { useState as useAppState } from "../utils/state";
@@ -38,6 +39,7 @@ export function RegisterComponent() {
 	const [error, setError] = useState("");
 	const handleShowClick = () => setShowPassword(!showPassword);
 	const state = useAppState();
+	const { colorMode } = useColorMode();
 
 	async function login(e) {
 		e.preventDefault();
@@ -226,7 +228,7 @@ export function RegisterComponent() {
 			<Box>
 				Already a memeber?
 				<Link
-					color="white"
+					color={colorMode == "dark" ? "white" : "black"}
 					textDecoration="underline"
 					fontWeight="bold"
 					href="/login"
