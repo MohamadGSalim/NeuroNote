@@ -14,6 +14,7 @@ import {
 	Link,
 	Stack,
 	Text,
+	useColorMode,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
@@ -28,6 +29,7 @@ export function LoginComponent() {
 	const [username, setUsername] = useState("");
 	const [error, setError] = useState("");
 	const state = useAppState();
+	const { colorMode } = useColorMode();
 
 	const handleShowClick = () => setShowPassword(!showPassword);
 
@@ -158,7 +160,7 @@ export function LoginComponent() {
 			<Box>
 				New to us?{" "}
 				<Link
-					color="white"
+					color={colorMode == "dark" ? "white" : "black"}
 					textDecoration="underline"
 					fontWeight="bold"
 					href="/register"
