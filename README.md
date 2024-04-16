@@ -3,7 +3,7 @@
  <img alt="Shows an illustrated sun in light color mode and a moon with stars in dark color mode." src="https://github.com/rogersi9/NeuroNote/blob/main/client2/public/logo-white.svg">
 </picture>
 
-**Our app aims to simulate taking input from an EEG device to convert brain signals into music, allowing users to choose their preferred instrument from a list of options.**
+**Our app aims to simulate taking input from an EEG device to convert brain signal into music, allowing users to choose their preferred instrument from a list of options.**
 
 # Setting up the project
 
